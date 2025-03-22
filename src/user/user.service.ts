@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Inject, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
@@ -11,7 +10,9 @@ export class UserService {
 
   async createUser(data: Prisma.UserCreateInput) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
-    return this.prisma.user.create({ data: {...data, password: hashedPassword } });
+    return this.prisma.user.create({
+      data: { ...data, password: hashedPassword },
+    });
   }
 
   async updateUser(params: {
